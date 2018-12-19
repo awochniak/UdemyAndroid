@@ -1,6 +1,7 @@
 package com.example.arkadiuszwochniak.udemyandroid;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -10,6 +11,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -18,6 +20,8 @@ import butterknife.OnClick;
 public class MainActivity extends AppCompatActivity {
 
     public final static String key = "MAGIC KEY";
+    public final static String sp = "PRIVATE STORAGE";
+    public final static String sp_key = "SHARED PREFERENCES";
 
     @BindView(R.id.shoppingListButton)
     Button shoppingListButton;
@@ -63,6 +67,12 @@ public class MainActivity extends AppCompatActivity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
+
+            SharedPreferences xd = getSharedPreferences(sp, MODE_PRIVATE);
+            String message = xd.getString(sp_key,null);
+            if (message!=null) {
+                Toast.makeText(this, message, Toast.LENGTH_LONG).show();
+            }
             return true;
         }
 
