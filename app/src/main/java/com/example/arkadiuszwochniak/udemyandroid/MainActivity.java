@@ -1,17 +1,26 @@
 package com.example.arkadiuszwochniak.udemyandroid;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 
+import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 public class MainActivity extends AppCompatActivity {
+
+    public final static String key = "MAGIC KEY";
+
+    @BindView(R.id.shoppingListButton)
+    Button shoppingListButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,6 +39,14 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    @OnClick(R.id.shoppingListButton)
+    void onClickShoppingList(){
+
+        Intent intent = new Intent (this, ShoppingListActivity.class);
+        intent.putExtra(key,"Super tajna wiadomość");
+        startActivity(intent);
+
+    }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.

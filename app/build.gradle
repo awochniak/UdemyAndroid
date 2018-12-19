@@ -2,6 +2,10 @@ apply plugin: 'com.android.application'
 
 android {
     compileSdkVersion 28
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8 //do działania butterKnife
+        targetCompatibility JavaVersion.VERSION_1_8 //do działania butterKnife
+    }
     defaultConfig {
         applicationId "com.example.arkadiuszwochniak.udemyandroid"
         minSdkVersion 16

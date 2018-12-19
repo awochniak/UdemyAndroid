@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">Udemy Android</string>
+    <string name="action_settings">Ustawienia</string>
+    <string name="shoppingListButton">Lista zakupów</string>
+</resources>
