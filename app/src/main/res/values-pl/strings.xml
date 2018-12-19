@@ -2,4 +2,9 @@
     <string name="app_name">Udemy Android</string>
     <string name="action_settings">Ustawienia</string>
     <string name="shoppingListButton">Lista zakupów</string>
+    <string name="drawButton">Rysowanie</string>
+    <string name="apiButton">API</string>
+    <string name="viewButton">Widok</string>
+    <string name="title_activity_shopping_list">Lista zakupów</string>
+
 </resources>
