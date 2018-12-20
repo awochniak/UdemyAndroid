@@ -19,9 +19,6 @@ import butterknife.OnClick;
 
 public class MainActivity extends AppCompatActivity {
 
-    public final static String key = "MAGIC KEY";
-    public final static String sp = "PRIVATE STORAGE";
-    public final static String sp_key = "SHARED PREFERENCES";
 
     @BindView(R.id.shoppingListButton)
     Button shoppingListButton;
@@ -40,7 +37,6 @@ public class MainActivity extends AppCompatActivity {
     void onClickShoppingList(){
 
         Intent intent = new Intent (this, ShoppingListActivity.class);
-        intent.putExtra(key,"Super tajna wiadomość");
         startActivity(intent);
 
     }
@@ -61,11 +57,6 @@ public class MainActivity extends AppCompatActivity {
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
 
-            SharedPreferences xd = getSharedPreferences(sp, MODE_PRIVATE);
-            String message = xd.getString(sp_key,null);
-            if (message!=null) {
-                Toast.makeText(this, message, Toast.LENGTH_LONG).show();
-            }
             return true;
         }
 
