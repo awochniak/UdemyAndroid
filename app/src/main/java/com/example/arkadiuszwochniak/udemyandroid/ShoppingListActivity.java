@@ -30,12 +30,13 @@ public class ShoppingListActivity extends AppCompatActivity {
     Spinner itemSpinner;
 
     private List<String> listItems;
-    private Set<String> spinnerItems;
+    private List<String> spinnerItems;
 
     private static final String LIST_ITEMS_KEY = "LIST_ITEMS_KEY";
     private static final String SPINNER_ITEMS_KEY = "SPINNER_ITEMS_KEY";
     private static final String SHOPPING_LIST_KEY = "SHOPPING_LIST_KEY";
-    private ArrayAdapter<String> listAdapter; // połączenie dwóch interfejsów / połączeni list_items z item list
+    private ShoppingListAdapter<String> listAdapter; // połączenie dwóch interfejsów / połączeni list_items z item list
+    private ArrayAdapter<String> spinnerAdapter; // połączenie dwóch interfejsów / połączeni list_items z item list
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,7 +46,7 @@ public class ShoppingListActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         listItems = new ArrayList<String>();
-        spinnerItems = new ArraySet<String>();
+        spinnerItems = new ArrayList<>();
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -62,8 +63,11 @@ public class ShoppingListActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         SharedPreferences xd = getSharedPreferences(SHOPPING_LIST_KEY, MODE_PRIVATE);
         //listItems = xd.getStringSet(LIST_ITEMS_KEY,new ArraySet<String>());
-        spinnerItems = xd.getStringSet(SPINNER_ITEMS_KEY, new ArraySet<String>());
-        listAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, listItems);
+        //spinnerItems = xd.getStringSet(SPINNER_ITEMS_KEY, new ArraySet<String>());
+
+        spinnerAdapter = new ArrayAdapter<String>(this, android.R.layout.select_dialog_item, spinnerItems);
+        itemSpinner.setAdapter(spinnerAdapter);
+        listAdapter = new ShoppingListAdapter<>(this, R.layout.row_shopping_list, listItems, spinnerAdapter, spinnerItems);
         itemList.setAdapter(listAdapter);
 
     }
