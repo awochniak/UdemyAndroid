@@ -29,7 +29,8 @@ public class ShoppingListAdapter<String> extends ArrayAdapter {
 
     public ShoppingListAdapter(@NonNull Context context, @LayoutRes int resource, @NonNull List objects, ArrayAdapter<java.lang.String> spinnerAdapter, List<java.lang.String> spinnerItems) {
         this(context,resource, objects);
-        this.spinnerAdapter =
+        this.spinnerAdapter = spinnerAdapter;
+        this.spinnerItems = spinnerItems;
     }
 
     @Override
