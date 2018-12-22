@@ -20,32 +20,38 @@ public class ShoppingListAdapter<String> extends ArrayAdapter {
     ArrayAdapter<String> spinnerAdapter;
     List<String> spinnerItems;
 
-    public ShoppingListAdapter(@NonNull Context context, @LayoutRes int resource, @NonNull List objects) {
+    public ShoppingListAdapter(@NonNull Context context, @LayoutRes int resource, @NonNull List<String> objects) {
         super(context, resource, objects);
-        this.objects = objects;
         this.context = context;
         this.resource = resource;
+        this.objects = objects;
+
     }
 
-    public ShoppingListAdapter(@NonNull Context context, @LayoutRes int resource, @NonNull List objects, ArrayAdapter<java.lang.String> spinnerAdapter, List<java.lang.String> spinnerItems) {
+    public ShoppingListAdapter(@NonNull Context context, @LayoutRes int resource, @NonNull List <String> objects, ArrayAdapter<String> spinnerAdapter, List<String> spinnerItems) {
         this(context,resource, objects);
         this.spinnerAdapter = spinnerAdapter;
         this.spinnerItems = spinnerItems;
     }
 
     @Override
-    public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
+    public View getView(final int position, @Nullable View convertView, @NonNull ViewGroup parent) {
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View rowView = inflater.inflate(R.layout.row_shopping_list, parent, false);
         TextView name = rowView.findViewById(R.id.name_ET);
         name.setText(""+objects.get(position));
         CheckBox selected = rowView.findViewWithTag(R.id.selected_CB);
-    /*    selected.setOnClickListener(new View.OnClickListener() {
+        selected.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
+                spinnerItems.add(objects.get(position));
+                spinnerAdapter.notifyDataSetChanged();
+                objects.remove(position);
+                ShoppingListAdapter.super.notifyDataSetChanged();
+
             }
-        });*/
+        });
 
         return rowView;
     }

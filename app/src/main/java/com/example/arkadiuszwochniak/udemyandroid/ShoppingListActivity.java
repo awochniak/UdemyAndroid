@@ -45,7 +45,7 @@ public class ShoppingListActivity extends AppCompatActivity {
         ButterKnife.bind(this);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        listItems = new ArrayList<String>();
+        listItems = new ArrayList<>();
         spinnerItems = new ArrayList<>();
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -67,7 +67,7 @@ public class ShoppingListActivity extends AppCompatActivity {
 
         spinnerAdapter = new ArrayAdapter<String>(this, android.R.layout.select_dialog_item, spinnerItems);
         itemSpinner.setAdapter(spinnerAdapter);
-        listAdapter = new ShoppingListAdapter<>(this, R.layout.row_shopping_list, listItems, spinnerAdapter, spinnerItems);
+        listAdapter = new ShoppingListAdapter<>(this, R.layout.row_shopping_list, listItems,  spinnerAdapter, spinnerItems);
         itemList.setAdapter(listAdapter);
 
     }
@@ -76,8 +76,8 @@ public class ShoppingListActivity extends AppCompatActivity {
     protected void onPause() {
         super.onPause();
         SharedPreferences.Editor editor = getSharedPreferences(SHOPPING_LIST_KEY, MODE_PRIVATE).edit(); //import static constant
-      //  editor.putString(LIST_ITEMS_KEY, listItems);
-        editor.putStringSet(SPINNER_ITEMS_KEY, spinnerItems);
+        //editor.putString(LIST_ITEMS_KEY, listItems);
+        //editor.putStringSet(SPINNER_ITEMS_KEY, spinnerItems);
         editor.commit();
     }
 
