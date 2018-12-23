@@ -35,7 +35,6 @@ public class MainActivity extends AppCompatActivity {
 
     @OnClick(R.id.shoppingListButton)
     void onClickShoppingList(){
-
         Intent intent = new Intent (this, ShoppingListActivity.class);
         startActivity(intent);
 
