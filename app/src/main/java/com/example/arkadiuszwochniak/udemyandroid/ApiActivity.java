@@ -63,20 +63,20 @@ public class ApiActivity extends AppCompatActivity {
         htmlDataButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                StringRequest stringRequest = new StringRequest(Request.Method.GET, "https://www.google.pl", new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
-                        resultTextView.setText(response);
-                    }
-                }, new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        resultTextView.setText("!!!");
-                    }
-                });
-
+                StringRequest stringRequest = new StringRequest(Request.Method.GET, "https://www.google.pl/",
+                        new Response.Listener<String>() {
+                            @Override
+                            public void onResponse(String response) {
+                                resultTextView.setText(response);
+                            }
+                        },
+                        new Response.ErrorListener() {
+                            @Override
+                            public void onErrorResponse(VolleyError error) {
+                                resultTextView.setText("!!!");
+                            }
+                        });
                 requestQueue.add(stringRequest);
-
             }
         });
         final String jsonUrl = "https://jsonplaceholder.typicode.com/users";

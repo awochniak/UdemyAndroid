@@ -2,6 +2,7 @@ package com.example.arkadiuszwochniak.udemyandroid;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -59,6 +60,14 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(this, ViewActivity.class);
         startActivity(intent);
     }
+    @OnClick(R.id.infoButton)
+    void onClickInfo() {
+        String url = "https://www.udemy.com";
+        Intent intent = new Intent(Intent.ACTION_VIEW);
+        intent.setData(Uri.parse(url));
+        startActivity(intent);
+    }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
