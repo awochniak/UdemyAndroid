@@ -26,6 +26,7 @@ import com.google.gson.JsonObject;
 
 import org.json.JSONArray;
 import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -78,32 +79,35 @@ public class ApiActivity extends AppCompatActivity {
 
             }
         });
-        String jsonUrl = "https://jsonplaceholder.typicode.com/users";
-        List <User> users = new ArrayList<>();
+        final String jsonUrl = "https://jsonplaceholder.typicode.com/users";
+        final List <User> users = new ArrayList<>();
         jsonDataButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new JsonArrayRequest(jsonUrl, new Response.Listener<JSONArray>() {
-                    @Override
-                    public void onResponse(JSONArray response) {
-                        for(int i = 0; i < response.length(); i++){
-                            try {
-                                JsonObject user = (JsonObject) response.get(i);
-                                Gson gson = new Gson();
-                                User u = gson.fromJson(user.toString(), User.class);
-                                users.add(u);
-                            } catch (JSONException e) {
-                                e.printStackTrace();
+                JsonArrayRequest jar = new JsonArrayRequest(jsonUrl,
+                        new Response.Listener<JSONArray>() {
+                            @Override
+                            public void onResponse(JSONArray response) {
+                                for (int i = 0; i < response.length(); i++) {
+                                    try {
+                                        JSONObject user = (JSONObject) response.get(i);
+                                        Gson gson = new Gson();
+                                        User u = gson.fromJson(user.toString(), User.class);
+                                        users.add(u);
+                                    } catch (JSONException e) {
+                                        e.printStackTrace();
+                                    }
+                                }
+                                resultTextView.setText(users.get(0).getName());
                             }
-                        }
-                        resultTextView.setText((CharSequence) users.get(0).getName());
-                    }
-                }, new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-
-                    }
-                });
+                        },
+                        new Response.ErrorListener() {
+                            @Override
+                            public void onErrorResponse(VolleyError error) {
+                                resultTextView.setText("!!!");
+                            }
+                        });
+                requestQueue.add(jar);
             }
         });
     }
