@@ -37,19 +37,21 @@ public class ApiActivity extends AppCompatActivity {
         });
     }
 
-    private class ThreadClass extends AsyncTask<String, Void, Void> {
+    private class ThreadClass extends AsyncTask<String, Integer, Float> {
 
         @Override
         protected void onPreExecute() {
             // metoda działająca w wątku użytkownika przygotowująca operację, np. pokazanie status bara
             progressBar.setVisibility(View.VISIBLE);
+            progressBar.setMax(100);
             textView.setText("" + System.currentTimeMillis());
             super.onPreExecute();
         }
 
         @Override
-        protected void onProgressUpdate(Void... values) {
+        protected void onProgressUpdate(Integer... values) {
             // pozwala na aktualizację np progres bara
+            progressBar.setProgress(values[0]);
             super.onProgressUpdate(values);
         }
 
@@ -57,26 +59,28 @@ public class ApiActivity extends AppCompatActivity {
         protected Void doInBackground(String... params) {
             // metoda wykonywana w innym wątku
             String url = params[0];
-            try {
-                Thread.sleep(1000);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
+            String a = url;
+                for (int i=0; i<10000; i++){
+                    a = a + url;
+
+                    if(i>0 && i%1000==0)
+                    publishProgress(i/1000);
+                }
+
             return null;
         }
 
         @Override
-        protected void onPostExecute(Void aVoid) {
+        protected void onPostExecute(Float f) {
             // metoda wykonywana po zakończeniu wywołania
             progressBar.setVisibility(View.INVISIBLE);
             textView.setText(textView.getText() + " " + "" + System.currentTimeMillis());
-            super.onPostExecute(aVoid);
         }
 
         @Override
-        protected void onCancelled(Void aVoid) {
+        protected void onCancelled(Float f) {
             // wywoływana wtedy gdy w do in bakckground zostanie wywołany cancel()
-            super.onCancelled(aVoid);
+            super.onCancelled(f);
         }
 
 
