@@ -17,8 +17,18 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.BasicNetwork;
 import com.android.volley.toolbox.DiskBasedCache;
 import com.android.volley.toolbox.HurlStack;
+import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.arkadiuszwochniak.udemyandroid.model.User;
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -68,12 +78,32 @@ public class ApiActivity extends AppCompatActivity {
 
             }
         });
-
+        String jsonUrl = "https://jsonplaceholder.typicode.com/users";
+        List <User> users = new ArrayList<>();
         jsonDataButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new ThreadClass().execute("URL", "URL2", "URL3");
+                new JsonArrayRequest(jsonUrl, new Response.Listener<JSONArray>() {
+                    @Override
+                    public void onResponse(JSONArray response) {
+                        for(int i = 0; i < response.length(); i++){
+                            try {
+                                JsonObject user = (JsonObject) response.get(i);
+                                Gson gson = new Gson();
+                                User u = gson.fromJson(user.toString(), User.class);
+                                users.add(u);
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                        resultTextView.setText((CharSequence) users.get(0).getName());
+                    }
+                }, new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
 
+                    }
+                });
             }
         });
     }
