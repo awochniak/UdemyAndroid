@@ -1,2 +1,11 @@
 strona do designu --> https://www.materialpalette.com/
 do ikonek --> material.io
+
+Alt + Insert - dodanie kontstuktora etc
+Ctrl + Alt + O - usunięcie nieużywanych importów
+Ctrl + Shift + U - zmiana wszystkich liter na wielkie
+Shift + F6 - globalna zmiana zmiennej
+Ctrl + Shift + Space - podpiwedzi
+
+http://www.jsonschema2pojo.org/ - json -> java
+https://github.com/google/gson - gson do json
