@@ -5,6 +5,8 @@
     <string name="drawButton">Rysowanie</string>
     <string name="apiButton">API</string>
     <string name="viewButton">Widok</string>
+    <string name="html_button">Dane z HTML</string>
+    <string name="json_button">Dane z JSON</string>
     <string name="title_activity_shopping_list">Lista zakupów</string>
 
 </resources>
