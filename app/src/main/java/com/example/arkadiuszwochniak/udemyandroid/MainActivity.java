@@ -46,8 +46,14 @@ public class MainActivity extends AppCompatActivity {
     void onClickDraw(){
         Intent intent = new Intent (this, DrawAcitivity.class);
         startActivity(intent);
-
     }
+
+    @OnClick(R.id.apiButton)
+    void onClickApi() {
+        Intent intent = new Intent(this, ApiActivity.class);
+        startActivity(intent);
+    }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
