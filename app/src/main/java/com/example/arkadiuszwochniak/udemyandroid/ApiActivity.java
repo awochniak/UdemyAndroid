@@ -16,9 +16,12 @@ public class ApiActivity extends AppCompatActivity {
     @BindView(R.id.progressBar)
     ProgressBar progressBar;
     @BindView(R.id.htmlDataButton)
-    Button button;
-    @BindView(R.id.textView)
-    TextView textView;
+    Button htmlDataButton;
+    @BindView(R.id.resultTextView)
+    TextView resultTextView;
+    @BindView(R.id.jsonDataButton)
+    Button jsonDataButton;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,11 +29,18 @@ public class ApiActivity extends AppCompatActivity {
         setContentView(R.layout.activity_api);
         ButterKnife.bind(this);
         progressBar.setVisibility(View.INVISIBLE);
-        textView.setVisibility(View.INVISIBLE);
-        button.setOnClickListener(new View.OnClickListener() {
+
+        htmlDataButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                textView.setVisibility(View.VISIBLE);
+                new ThreadClass().execute("URL", "URL2", "URL3");
+
+            }
+        });
+
+        jsonDataButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
                 new ThreadClass().execute("URL", "URL2", "URL3");
 
             }
@@ -44,7 +54,7 @@ public class ApiActivity extends AppCompatActivity {
             // metoda działająca w wątku użytkownika przygotowująca operację, np. pokazanie status bara
             progressBar.setVisibility(View.VISIBLE);
             progressBar.setMax(100);
-            textView.setText("" + System.currentTimeMillis());
+            // textView.setText("" + System.currentTimeMillis());
             super.onPreExecute();
         }
 
@@ -56,16 +66,16 @@ public class ApiActivity extends AppCompatActivity {
         }
 
         @Override
-        protected Void doInBackground(String... params) {
+        protected Float doInBackground(String... params) {
             // metoda wykonywana w innym wątku
             String url = params[0];
             String a = url;
-                for (int i=0; i<10000; i++){
-                    a = a + url;
+            for (int i = 0; i < 10000; i++) {
+                a = a + url;
 
-                    if(i>0 && i%1000==0)
-                    publishProgress(i/1000);
-                }
+                if (i > 0 && i % 1000 == 0)
+                    publishProgress(i / 1000);
+            }
 
             return null;
         }
@@ -74,7 +84,8 @@ public class ApiActivity extends AppCompatActivity {
         protected void onPostExecute(Float f) {
             // metoda wykonywana po zakończeniu wywołania
             progressBar.setVisibility(View.INVISIBLE);
-            textView.setText(textView.getText() + " " + "" + System.currentTimeMillis());
+            // textView.setText(textView.getText() + " " + "" + System.currentTimeMillis());
+            super.onPostExecute(f);
         }
 
         @Override
